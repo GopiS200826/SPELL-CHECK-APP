@@ -2,7 +2,7 @@ name: Spell Check with Podman
 
 on:
   push:
-    branches: [ main ]
+    branches: [ master ]
 
 jobs:
   spellcheck:
