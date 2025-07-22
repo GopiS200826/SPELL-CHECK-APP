@@ -4,14 +4,14 @@ set -e
 echo "🔍 Running spell check..."
 error=0
 
-for file in $(find . -type f \( -name "*.md" -o -name "*.txt" -o -name "*.py" \)); do
-  echo "📄 Checking: \$file"
-  misspelled=\$(aspell list < "\$file" | sort | uniq)
-  if [ -n "\$misspelled" ]; then
-    echo "❌ Spelling mistakes found in \$file:"
-    echo "\$misspelled"
+while IFS= read -r -d $'\0' file; do
+  echo "📄 Checking: $file"
+  misspelled=$(aspell list < "$file" | sort | uniq)
+  if [ -n "$misspelled" ]; then
+    echo "❌ Spelling mistakes found in $file:"
+    echo "$misspelled"
     error=1
   fi
-done
+done < <(find . -type f \( -name "*.md" -o -name "*.txt" -o -name "*.py" \) -print0)
 
-exit \$error
+exit $error
