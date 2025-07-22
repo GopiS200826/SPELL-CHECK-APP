@@ -5,6 +5,8 @@ RUN apt-get update && apt-get install -y \
     && rm -rf /var/lib/apt/lists/*
 
 COPY spellcheck.sh /spellcheck.sh
+RUN chmod +x /spellcheck.sh  # ✅ Important line
+
 WORKDIR /workspace
 
 ENTRYPOINT ["/spellcheck.sh"]
