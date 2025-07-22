@@ -1,1 +1,1 @@
-This is a smple document with a few errrors to check.
+This is a sample document with out error.
