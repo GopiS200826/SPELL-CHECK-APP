@@ -1,0 +1,26 @@
+name: Spell Check with Podman
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  spellcheck:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v3
+
+    - name: Install Podman
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y podman
+
+    - name: Build Spell Checker Image
+      run: |
+        podman build -t spellchecker .
+
+    - name: Run Spell Checker
+      run: |
+        podman run --rm -v ${{ github.workspace }}:/workspace spellchecker
